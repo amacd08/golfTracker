@@ -1,0 +1,7 @@
+let golfCourse = {
+    mountainview:[{'par': 4, 'yard': 358}, {'par': 3, 'yard': 145}, {'par': 4, 'yard': 340}, {'par': 4, 'yard': 395}, {'par': 5, 'yard': 533}, {'par': 4, 'yard': 382}, {'par': 4,'yard': 350}, {'par': 3, 'yard': 120}, {'par': 5, 'yard': 465}, {'par': 5, 'yard': 471}, {'par': 4, 'yard': 421}, {'par': 3, 'yard': 136}, {'par': 5, 'yard': 497}, {'par': 4, 'yard': 367}, {'par': 4, 'yard': 396}],
+    parkway: [{'par': 4, 'yard': 391}, {'par': 4, 'yard': 409}, {'par': 5, 'yard': 509}, {'par': 3, 'yard': 210}, {'par': 5, 'yard': 538}, {'par': 4, 'yard': 369}, {'par': 3,'yard': 182}, {'par': 4, 'yard': 407}, {'par': 4, 'yard': 367}, {'par': 5, 'yard': 600}, {'par': 4, 'yard': 437}, {'par': 4, 'yard': 384}, {'par': 4, 'yard': 394}, {'par': 3, 'yard': 157}, {'par': 4, 'yard': 353}, {'par': 4, 'yard': 361}, {'par': 3, 'yard': 226}, {'par': 5, 'yard': 500}],
+    thanksgivingpoint: [{'par': 4, 'yard': 344}, {'par': 5, 'yard': 522}, {'par': 4, 'yard': 288}, {'par': 3, 'yard': 176}, {'par': 5, 'yard': 550}, {'par': 4, 'yard': 426}, {'par': 3,'yard': 190}, {'par': 4, 'yard': 387}, {'par': 4, 'yard': 430}, {'par': 4, 'yard': 390}, {'par': 5, 'yard': 600}, {'par': 4, 'yard': 394}, {'par': 4, 'yard': 405}, {'par': 5, 'yard': 510}, {'par': 3, 'yard': 194}, {'par': 4, 'yard': 418}, {'par': 3, 'yard': 187}, {'par': 4, 'yard': 385}]
+}
+
+module.exports = golfCourse
