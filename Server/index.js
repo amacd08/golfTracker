@@ -15,7 +15,6 @@ app.get('/api/golfer/:id', ht.getGolfer)
 
 app.get('/api/golfer/:id/:index/:round', ht.getGolferRound)
 
-// app.post('api/course', ht.createCourse)
 
 app.post('/api/course/:id', ht.addCourse)
 
@@ -33,3 +32,4 @@ app.put('/api/golfer/:index/:round/:course/:hole', ht.updateRound)
 
 
 app.listen(port, () => console.log(`Listening on ${port}`))
+
