@@ -13,8 +13,7 @@ app.get('/api/course/:id/:hole', ht.getHole)
 
 app.get('/api/golfer/:id', ht.getGolfer)
 
-app.get('/api/golfer/:id/:index/:round', ht.getGolferRound)
-
+app.get('/api/round/:golferID/:courseName/:roundIndex', ht.getGolferRound)
 
 app.post('/api/course/:id', ht.addCourse)
 
@@ -22,10 +21,7 @@ app.put('/api/course/:id/', ht.addHole)
 
 app.post('/api/round/:golfer/:course', ht.addRound)
 
-app.put('/api/round/:golfer/:course/:roundIndex', ht.addHoleToRound)
-
-
-app.put('/api/golfer/:index/:round/:course/:hole', ht.updateRound)
+app.put('/api/round/:golfer/:roundIndex', ht.addHoleToRound)
 
 // app.delete('api/golfer/:id/:round', ht.deleteRound)
 

@@ -28,7 +28,8 @@ module.exports = {
     //app.get('/api/course/', ht.getAllCourses)
     getAllCourses: (req,res) => {
         let courseList = Object.keys(golfCourse)
-        res.send(courseList)    },
+        res.send(courseList) 
+    },
     
     // Collects specific course information for a specific golf course,
     //app.get('/api/course/:id', ht.getCourse)
@@ -79,26 +80,17 @@ module.exports = {
     },
     //collects a specific round from a golfer - uses course name strings as the method of matching the request to a course. Note that the return of 
     //round index makes it so that this should only be used once.
-    //app.get('/api/golfer/:id/:index/:round', ht.getGolferRound)
+    //app.get('/api/round/:id/:index/:round', ht.getGolferRound)
+
 
     getGolferRound: (req,res) => {
-        index = req.params.index
-        golferID = req.params.id
-        golferRound = req.params.round
-        let roundIndex = 0
-        golfer = golfers[index]
-
-        chosenRound = golfer.rounds.find((round, i) => {
-            if (round.course === golferRound) {
-                roundIndex = i
-                return round
-            }
-        })
-        if (chosenRound) {
-            res.send({chosenRound, roundIndex})
-        } else {
-            res.send('failed')
-        }
+        courseName = req.params.courseName
+        golferID = req.params.golferID
+        golferRound = req.params.roundIndex
+        golfer = golfers[golferID]
+        res.send(golfer.rounds[golferRound])
+        
+        
     },
     
     // Adds an entirely new course with no hole information
@@ -111,7 +103,7 @@ module.exports = {
         },
 
     // adds a new round to a use. Returns the roundIndex for easy access later
-    //app.put('/api/course/:id/', ht.addHole)
+    //app.post('/api/round/:golfer/:course', ht.addRound)
 
     addRound: (req,res) => {
         today = new Date()
@@ -127,62 +119,46 @@ module.exports = {
                     'id': newRoundID,
                     'date': date
                 })
-            newRoundIndex = golfers[golferIndex].rounds.length 
+            newRoundIndex = golfers[golferIndex].rounds.length -1
             // golfers[index].rounds[newRoundIndex]['date'] = date
             // golfers[index].rounds[newRoundIndex]['id'] = newRoundID
-            golfers[golferIndex].rounds[newRoundIndex -1][courseID] = []
-            res.send({ newRoundIndex,})
+            golfers[golferIndex].rounds[newRoundIndex ][courseID] = {
+                score: [],
+                fairway: [],
+                gir: [],
+                lostBall: []}
+            res.send({newRoundIndex})
     },
     //Adds a single hole to a round.
-    //app.post('/api/round/:golfer/:course', ht.addRound)
+    //app.put('/api/round/:golfer/:roundIndex', ht.addHoleToRound)
 
     addHoleToRound: (req,res) => {
-        console.log(golfers[0].rounds)
         golferIndex = req.params.golfer
-        courseID = req.params.course
         roundIndex = Number(req.params.roundIndex)
-        console.log(roundIndex)
-        score = req.body
-        golfers[golferIndex].rounds[newRoundIndex - 1][courseID].push(req.body)
-        console.log(golfers[golferIndex].rounds[newRoundIndex - 1])
-
+        courseID = golfers[golferIndex].rounds[roundIndex].course
+        let { holeScore, holeFairway, holeLostBall, holeGir } = req.body
+        round = golfers[golferIndex].rounds[roundIndex][courseID]
+        //console.log(golfers[golferIndex].rounds[roundIndex][courseID].score)
+        console.log(round)
+        round.score.push(+holeScore)
+        round.fairway.push(holeFairway)
+        round.lostBall.push(holeLostBall)
+        round.gir.push(holeGir)
+        res.send(golfers[golferIndex].rounds[roundIndex])
     },
     //Adds yard and par to a newCourse
-    //app.put('/api/round/:golfer/:course/:roundIndex', ht.addHoleToRound)
+    //app.put('/api/course/:id/', ht.addHole)
 
     addHole: (req,res) => {
         let courseID = req.params.id
         let par = req.body.par
         let yard = req.body.yard
-        console.log(golfCourse)
         golfCourse[courseID].push({
             par,
             yard
         })
         res.send(golfCourse[courseID])
     },
-    //Adds user input for each hole they are playing
-    //app.put('/api/golfer/:index/:round/:course/:hole', ht.updateRound)
-
-    updateRound: (req,res) => { 
-        fairway = req.body.fairway,
-        gir = req.body.gir,
-        lostBall = req.body.lostBall,
-        score = req.body.score,
-        index = req.params.index
-        roundIndex = req.params.round
-        course = req.params.course
-        hole = req.params.hole
-        golfers[index].rounds[roundIndex][course].push({
-            hole,
-            score,
-            fairway,
-            gir,
-            lostBall,
-        })
-
-        res.send(golfers[index].rounds[roundIndex][course])
-    }
 
 }
 
